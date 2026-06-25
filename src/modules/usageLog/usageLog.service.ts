@@ -1,7 +1,12 @@
 import { prisma } from "../../lib/prisma";
 
-const createUsageLog = async (payload: any) => {
-    const usageLog = await prisma.usageLog.create({ data: payload });
+const createUsageLog = async (payload: any, userId: string) => {
+    const usageLog = await prisma.usageLog.create({
+        data: {
+            ...payload,
+            userId
+        }
+    });
     return usageLog;
 }
 

@@ -3,8 +3,9 @@ import { usageLogService } from "./usageLog.service";
 import sendResponse from "../../utils/sendResponse";
 
 const createUsageLog: RequestHandler = async (req, res, next) => {
+    console.log(req.user);
     try {
-        const usageLog = await usageLogService.createUsageLog(req.body);
+        const usageLog = await usageLogService.createUsageLog(req.body, req.user.id as string);
 
         sendResponse(res, 201, {
             success: true,
