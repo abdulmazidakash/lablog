@@ -13,6 +13,12 @@ const globalErrorHandler: ErrorRequestHandler = (
             message: "Serial number already exists.",
         });
     }
+    if (error.code === "P2025") {
+        return sendResponse(res, 404, {
+            success: false,
+            message: "User not found"
+        });
+    }
 
     sendResponse(res, 500, {
         success: false,
