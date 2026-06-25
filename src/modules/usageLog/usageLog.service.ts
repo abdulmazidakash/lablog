@@ -18,9 +18,20 @@ const getUsageLog = async () => {
         }
     });
     return usageLog;
+};
+
+const updateUsageLog = async (id: string, payload: any) => {
+    const usageLog = await prisma.usageLog.update({
+        where: { id },
+        data: {
+            endtime: new Date(),
+        }
+    });
+    return usageLog;
 }
 export const usageLogService = {
     // Add service methods here
     createUsageLog,
     getUsageLog,
+    updateUsageLog,
 };

@@ -29,10 +29,32 @@ const getUsageLog: RequestHandler = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+};
+
+const updateUsageLog: RequestHandler = async (req, res, next) => {
+    const { id } = req.params;
+
+    if (!id) return sendResponse(res, 401, {
+        success: false,
+        message: "forbidden",
+    });
+
+    try {
+        const usageLog = await usageLogService.updateUsageLog(id as string, req.body);
+
+        sendResponse(res, 201, {
+            success: true,
+            message: "Usagelog updated successfully",
+            data: usageLog,
+        });
+    } catch (error) {
+        next(error)
+    }
 }
 
 export const usageLogController = {
     // Add controller methods here
     createUsageLog,
     getUsageLog,
+    updateUsageLog,
 };

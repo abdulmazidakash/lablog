@@ -23,6 +23,11 @@ const auth = (roles?: Role[]) => {
 
             req.user = decoded as JwtPayload;
 
+            //role based authentication
+            if (roles && !roles.includes(req.user.role)) {
+                res.send("Forbidden")
+            }
+
             next();
         } catch (error) {
             console.error(error);
