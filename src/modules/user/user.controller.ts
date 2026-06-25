@@ -13,6 +13,25 @@ const register: RequestHandler = async (req, res) => {
     })
 };
 
+const login: RequestHandler = async (req, res, next) => {
+    try {
+        const user = await userService.login(req.body);
+
+        sendResponse(res, 200, {
+            success: true,
+            message: "User login Successfully",
+            data: user,
+        })
+    } catch (error) {
+        next(error);
+    }
+
+
+}
+
+
+
 export const userController = {
     register,
-}
+    login,
+};
