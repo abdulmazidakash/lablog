@@ -1,12 +1,18 @@
 import { RequestHandler } from "express";
-import { prisma } from "../../lib/prisma";
+import sendResponse from "../../utils/sendResponse";
+import { userService } from "./user.service";
 
 const register: RequestHandler = async (req, res) => {
-    const payload = req.body;
 
-    const user = await prisma.user.create({
-        data: payload,
+    const user = await userService.register(req.body);
+
+    sendResponse(res, 201, {
+        success: true,
+        message: "User Registered Successfully",
+        data: user
     })
+};
 
-    res.status(201).json({ user })
+export const userController = {
+    register,
 }
